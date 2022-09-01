@@ -11,23 +11,37 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h2 class="title">App Broadcast</h2>
-    <div class="container">
+    <h2 class="title title-init">App Broadcast</h2>
+    <div class="container" id="container">
         <img class="logo" src="./assets/cop.png" alt="logo">
-        <a class="btn" href="http://localhost:8080/emisor.html">Transmitir</a>
-        <a class="btn" id="host" href="http://192.168.1.102:8080/cliente.html">Recibir transmisión</a>
+        <a class="btn btn-init" href="http://localhost:8080/emisor.html">Transmitir</a>
+        <button class="btn btn-init" id="host">Recibir transmisión</button>
+        <button class="btn btn-init" id="connect" style="display: none;">Conectarce</button>
     </div>
     <script>
         window.addEventListener("DOMContentLoaded", () => {
             const host = document.getElementById("host");
-            (() => {
-                fetch('http://localhost:8080/ip')
-                .then(res => res.json())
-                .then(data => {
-                    host.href = `http://${data.host}:8080/cliente.html`
-                })
-                .catch(err => console.log('Up!, error', err));
-            })()
+            const container = document.getElementById("container");
+            const connect = document.getElementById("connect");
+           
+            host.addEventListener('click', () => {
+                const input = document.createElement("input");
+                input.type = "text";
+                input.classList.add("input");
+
+                container.appendChild(input);
+                host.style.display = "none";
+                connect.style.display = "block";
+            })
+
+            connect.addEventListener("click", () => {
+                const input = document.querySelector("input");
+                if (input.value) {
+                    window.location.href = `http://${input.value}:8080/cliente.html`
+                }
+            })
+
+
         })
     </script>
 </body>

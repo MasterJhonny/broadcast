@@ -2,12 +2,14 @@ const canvas = document.getElementById("preview");
 const btn = document.getElementById("btn");
 const menu = document.getElementById("menu");
 const video = document.getElementById("video");
+const ipAddress = document.getElementById("ipAddress");
 
 const socket = io();
 const FPS = 45;
 canvas.style.display = "none";
 
 window.electronAPI.getMediaDevice();
+window.electronAPI.getIpAddress();
 window.electronAPI.init('init emosor!!');
 
 async function loadDisplay() {
@@ -65,6 +67,5 @@ function changeButton(btn) {
 }
 
 btn.onclick = () => {
-    alert(btn.innerText);
     loadDisplay();
 }

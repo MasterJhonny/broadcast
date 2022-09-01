@@ -14,6 +14,10 @@ function handleError (e) {
 
 contextBridge.exposeInMainWorld('electronAPI', {
     init: (message) => ipcRenderer.send('message', message),
+    getIpAddress: () => ipcRenderer.on('ip:address', (event, address) => {
+        console.log("ip", address);
+        ipAddress.textContent = "IP: " + address;
+    }),
     getMediaDevice: () => {
         ipcRenderer.on('set:sourse', async (event, data) => {
             console.log(data);
@@ -21,6 +25,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
                 const option = document.createElement("option");
                 option.textContent = item.name;
                 option.value = item.id;
+                option.classList.add("select-item");
                 menu.appendChild(option); 
             });
             // loadDisplay('window:46137347:0');

@@ -39,7 +39,10 @@ app.whenReady().then(() => {
                 id: source.id
               })
             }
-            mainWindow.webContents.send('set:sourse', decives)
+            mainWindow.webContents.send('set:sourse', decives);
+            console.log(appConfig.host);
+            const ip = appConfig.host;
+            mainWindow.webContents.send('ip:address', ip)
         })
     });
 

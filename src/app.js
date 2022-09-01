@@ -14,13 +14,6 @@ app.use(require('./routes/broadcast'));
 // files static
 app.use(express.static(path.join(__dirname,'public')));
 
-app.get('/ip', (req, res) => {
-    res.json({
-        host: appConfig.host
-    })
-})
-
-
 io.on('connect', (socket) => {
     socket.on('stream', (image) => {
         // emit stream
