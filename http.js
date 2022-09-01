@@ -3,16 +3,12 @@ const express = require('express');
 const path = require('path');
 const app = express();
 const http = require('http').Server(app);
-const { appConfig } = require('./config');
 
 // connect socket io
 const io = require('socket.io')(http);
 
-// router
-app.use(require('./routes/broadcast'));
-
 // files static
-app.use(express.static(path.join(__dirname,'public')));
+app.use(express.static(path.join(__dirname,'views')));
 
 io.on('connect', (socket) => {
     socket.on('stream', (image) => {

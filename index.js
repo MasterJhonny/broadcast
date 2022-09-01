@@ -1,57 +1,58 @@
-const http = require('./src/app');
+const http = require('./http');
 const { app, BrowserWindow, Menu, desktopCapturer, ipcMain } = require("electron");
 const path = require("path");
-const url = require("url");
 
-const { appConfig } = require('./src/config');
+const { appConfig } = require('./config');
 const port = appConfig.port || 8080;
-
 
 http.listen(port, () => {
     console.log(`http://localhost:${port}`);
 })
 
-let mainWindow;
-
-app.whenReady().then(() => { 
-    // The Main Window
-    mainWindow = new BrowserWindow({
+const createWindow = () => {
+    const win = new BrowserWindow({
         width: 1920,
         height: 1080,
         minWidth: 1280,
         minHeight: 720,
         webPreferences: {
-            preload: path.join(__dirname, 'preload.js'),
-            nodeIntegration: true
+            preload: path.join(__dirname, 'preload.js')
         }
-    });
-    
-    // mainWindow.webContents.openDevTools();
-    mainWindow.loadURL(`http://localhost:${port}/index.html`);
+    })
+    win.webContents.openDevTools();
+    win.loadFile(path.join(__dirname, 'views/index.html'));
+    // win.loadURL(`http://localhost:${port}/index.html`);
+
+}
+
+app.whenReady().then(() => { 
+    // The Main Window
+    createWindow()
 
     ipcMain.on('message', (e, data) => {
         console.log(data)
-        desktopCapturer.getSources({ types: ['window', 'screen'] }).then(async sources => {
-            const decives = [];
-            for (const source of sources) {
-              decives.push({
-                name: source.name,
-                id: source.id
-              })
-            }
-            mainWindow.webContents.send('set:sourse', decives);
-            console.log(appConfig.host);
-            const ip = appConfig.host;
-            mainWindow.webContents.send('ip:address', ip)
-        })
     });
+    
+    ipcMain.handle("ip:address", async () => {
+        console.log(appConfig.host);
+        const ip = appConfig.host;
+        return ip;
+    })
 
+    ipcMain.handle("set:sourse", async () => {
+        const decives = (await desktopCapturer.getSources({ types: ['window', 'screen'] })).map(item => {
+          return {
+            id: item.id,
+            name: item.name,
+          }
+        });
+        return decives;
+    })
 })
 
 
 // Menu Template
 const templateMenu = []
-
 templateMenu.push({
     label: 'DevTools',
     submenu: [

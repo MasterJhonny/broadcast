@@ -5,33 +5,35 @@ function handleStream (stream) {
     const video = document.querySelector('video')
     video.srcObject = stream
     video.onloadedmetadata = (e) => video.play()
+    video.dataset.status = "start";
 }
 
 function handleError (e) {
     console.log(e)
+    publicMessage("ups, ocurrio un error!")
 }
 
-
 contextBridge.exposeInMainWorld('electronAPI', {
-    init: (message) => ipcRenderer.send('message', message),
-    getIpAddress: () => ipcRenderer.on('ip:address', (event, address) => {
-        console.log("ip", address);
-        ipAddress.textContent = "IP: " + address;
-    }),
+    sendData: (message) => ipcRenderer.send('message', message),
+    getIpAddress: () => {
+        ipcRenderer.invoke("ip:address").then(ipAdress => {
+            console.log("ip", ipAdress);
+            ipAddress.textContent = "IP: " + ipAdress;
+        })
+    },
     getMediaDevice: () => {
-        ipcRenderer.on('set:sourse', async (event, data) => {
-            console.log(data);
-            data.forEach(item => {
+        ipcRenderer.invoke('set:sourse').then(response => {
+            console.log(response);
+            response.forEach(item => {
                 const option = document.createElement("option");
                 option.textContent = item.name;
                 option.value = item.id;
                 option.classList.add("select-item");
-                menu.appendChild(option); 
+                menu.appendChild(option);
             });
-            // loadDisplay('window:46137347:0');
         })
     },
-    loadDisplay: async (idSource) => {
+    startCapture: async (idSource) => {
         try {
             const stream = await navigator.mediaDevices.getUserMedia({
                 audio: false,
