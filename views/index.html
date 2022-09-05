@@ -13,34 +13,11 @@
 <body>
     <h2 class="title title-init">App Broadcast</h2>
     <div class="container" id="container">
-        <img class="logo" src="./assets/cop.png" alt="logo">
+        <img class="logo" src="./assets/emit.png" alt="logo">
         <a class="btn btn-init" href="http://localhost:8080/emisor.html">Transmitir</a>
         <button class="btn btn-init" id="host">Recibir transmisión</button>
         <button class="btn btn-init" id="connect" style="display: none;">Conectarce</button>
     </div>
-    <script>
-        window.addEventListener("DOMContentLoaded", () => {
-            const host = document.getElementById("host");
-            const container = document.getElementById("container");
-            const connect = document.getElementById("connect");
-           
-            host.addEventListener('click', () => {
-                const input = document.createElement("input");
-                input.type = "text";
-                input.classList.add("input");
-
-                container.appendChild(input);
-                host.style.display = "none";
-                connect.style.display = "block";
-            })
-
-            connect.addEventListener("click", () => {
-                const input = document.querySelector("input");
-                if (input.value) {
-                    window.location.href = `http://${input.value}:8080/cliente.html`
-                }
-            })
-        })
-    </script>
+    <script src="./js/app.js"></script>
 </body>
 </html>

@@ -1,6 +1,7 @@
 const canvas = document.getElementById("preview");
 const btn = document.getElementById("btn");
 const menu = document.getElementById("menu");
+const reloadView = document.getElementById("reloadView");
 const video = document.getElementById("video");
 const ipAddress = document.getElementById("ipAddress");
 const statusLive = document.getElementById("statusLive");
@@ -15,6 +16,7 @@ window.electronAPI.getMediaDevice();
 window.electronAPI.getIpAddress();
 
 function stopStream () {
+    socket.emit("stop", "stop");
     window.location.reload();
 }
 
@@ -68,4 +70,9 @@ menu.addEventListener("change", () => {
     if(menu.value) {
         window.electronAPI.startCapture(menu.value);
     }
+})
+
+reloadView.addEventListener("click", () => {
+    console.log("reload!");
+    window.electronAPI.getMediaDevice();
 })

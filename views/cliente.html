@@ -15,6 +15,7 @@
     <header>
         <a class="btn" href="index.html">volver</a>
         <h2 class="title" >Cliente</h2>
+        <span id="statusStream"></span>
         <button class="btn" id="btn">Recargar</button>
     </header>
     <div class="container">
@@ -22,6 +23,8 @@
     </div>
     <script>
         const btn = document.getElementById("btn");
+        const img = document.getElementById("play");
+        const statusStream = document.getElementById("statusStream");
 
         btn.onclick = () => {
             window.location.reload();
@@ -33,11 +36,21 @@
             console.log("Connect", socket.id);
         })
 
-        socket.on("stream", (image) => {
-            let img = document.getElementById("play");
-            img.src = image;
+        socket.on("disconnect", () => {
+            console.log("Disconnect", socket.id);
         })
-        // este es un new codigo que se escribe en la vida
+
+        socket.on("stream", (image) => {
+            img.src = image;
+            statusStream.classList.add("live-cliente");
+            statusStream.textContent = "Recibiendo transmisión";
+        })
+        socket.on("stop", (data) => {
+            console.log(data);
+            statusStream.classList.remove("live-cliente");
+            statusStream.textContent = "";
+            img.src = "./assets/fondo.png"
+        })
     </script>
 </body>
 </html>

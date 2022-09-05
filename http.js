@@ -15,6 +15,9 @@ io.on('connect', (socket) => {
         // emit stream
         socket.broadcast.emit('stream', image);
     })
+    socket.on('stop', (data) => {
+        socket.broadcast.emit('stop', data);
+    })
 })
 
 module.exports = http;

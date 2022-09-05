@@ -24,6 +24,12 @@ contextBridge.exposeInMainWorld('electronAPI', {
     getMediaDevice: () => {
         ipcRenderer.invoke('set:sourse').then(response => {
             console.log(response);
+            menu.innerHTML = "";
+            const option = document.createElement("option");
+            option.textContent = "---";
+            option.value = "";
+            option.classList.add("select-item");
+            menu.appendChild(option);
             response.forEach(item => {
                 const option = document.createElement("option");
                 option.textContent = item.name;

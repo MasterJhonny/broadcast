@@ -22,9 +22,11 @@
     <div class="container">
         <p id="statusLive"></p>
         <video class="video" id="video" width="1100" height="619" data-status="stop"></video>
-        <select id="menu" name="diplay" class="btn">
-            <option class="select-item" value="">---</option>
-        </select>
+        <div class="box-views">
+            <select id="menu" name="diplay" class="btn">
+            </select>
+            <button class="btn btn-reload-views" id="reloadView"></button>
+        </div>
         <canvas id="preview"></canvas>
     </div>
     <script src="./js/emisor.js" ></script>
