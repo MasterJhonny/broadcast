@@ -14,18 +14,18 @@
 </head>
 <body>
     <header>
-        <a  class="btn" href="index.html">volver</a>
-        <h2 class="title" >Emisor</h2>
+        <a  class="btn btn-pry" href="index.html">volver</a>
+        <h2 class="title title-emit" >Emisor</h2>
+        <span id="statusLive"></span>
         <span id="ipAddress" class="ip"></span>
-        <button class="btn" id="btn">Emitir</button>
+        <button class="btn btn-pry" id="btn">Emitir</button>
     </header>
     <div class="container">
-        <p id="statusLive"></p>
         <video class="video" id="video" width="1100" height="619" data-status="stop"></video>
         <div class="box-views">
-            <select id="menu" name="diplay" class="btn">
+            <select id="menu" name="diplay" class="btn btn-pry">
             </select>
-            <button class="btn btn-reload-views" id="reloadView"></button>
+            <button class="btn btn-pry btn-reload-views" id="reloadView"></button>
         </div>
         <canvas id="preview"></canvas>
     </div>

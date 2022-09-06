@@ -17,6 +17,7 @@ header {
     display: grid;
     grid-template-columns: repeat(10, 1fr);
     padding: 8px;
+    margin: 4px 0;
 }
 
 
@@ -29,6 +30,10 @@ a {
     font-weight: bold;
     text-align: center;
     grid-column: 3/9;
+}
+
+.title-emit {
+    grid-column: 3/8;
 }
 
 .title-init {
@@ -74,11 +79,14 @@ a {
     font-size: 18px;
     font-weight: bold;
     padding: 8px 10px;
+    text-align: center;
+    border-radius: 6px;
+}
+
+.btn-pry {
     background-color: rgba(255, 255, 255, 0.1);
     color: #F5E8E4;
     border: solid 1px rgba(255, 255, 255, 0.6);
-    border-radius: 6px;
-    text-align: center;
     cursor: pointer;
 }
 
@@ -102,12 +110,12 @@ a {
     margin-left: 8px;
 }
 
-.btn:hover {
+.btn-pry:hover {
     background-color: rgba(255, 255, 255, 0.4);
     color: #F5C7A9;
 }
 
-.btn:active {
+.btn-pry:active {
     background-color: rgba(255, 255, 255);
     color: #1C3879;
     box-shadow: 0 0 10px rgba(255, 255, 255, .6);
@@ -133,11 +141,17 @@ a {
     font-weight: bold;
     text-transform: uppercase;
     text-align: center;
+    line-height: 32px;
     color: #fff;
     background-color: red;
     padding: 4px;
     border-radius: 4px;
+    margin-right: 14px;
+    animation-name: fadeIn;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
 }
+
 
 .live-cliente {
     font-size: 14px;
@@ -148,4 +162,29 @@ a {
     padding: 4px;
     border-radius: 4px;
     margin-right: 3px;
+    animation-name: fadeIn;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    transition: all 700ms ease;
+}
+
+@keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    20% {
+      opacity: 0.3;
+    }
+    40% {
+        opacity: 0.6;
+    }
+    60% {
+        opacity: 1;
+    }
+    80% {
+        opacity: 0.7;
+    }
+    100% {
+        opacity: 0.4;
+    }
 }
