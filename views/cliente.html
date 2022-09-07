@@ -38,6 +38,7 @@
 
         socket.on("disconnect", () => {
             console.log("Disconnect", socket.id);
+            window.location.href = 'http://localhost:8080/index.html';
         })
 
         socket.on("stream", (image) => {

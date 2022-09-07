@@ -14,11 +14,21 @@
 </head>
 <body>
     <header>
-        <a  class="btn btn-pry" href="index.html">volver</a>
-        <h2 class="title title-emit" >Emisor</h2>
-        <span id="statusLive"></span>
-        <span id="ipAddress" class="ip"></span>
-        <button class="btn btn-pry" id="btn">Emitir</button>
+        <div class="box-grid">
+            <button class="btn btn-pry" id="btnHome">Volver</button>
+        </div>
+        <div class="box-grid title-emit">
+            <h2 class="title" >Emisor</h2>
+        </div>
+        <div class="box-grid">
+            <span id="statusLive"></span>
+        </div>
+        <div class="box-grid">
+            <span id="ipAddress" class="ip"></span>
+        </div>
+        <div class="box-grid">
+            <button class="btn btn-pry" id="btn">Emitir</button>
+        </div>
     </header>
     <div class="container">
         <video class="video" id="video" width="1100" height="619" data-status="stop"></video>

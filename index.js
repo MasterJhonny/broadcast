@@ -5,6 +5,7 @@ const path = require("path");
 const { appConfig } = require('./config');
 const port = appConfig.port || 8080;
 
+
 http.listen(port, () => {
     console.log(`http://localhost:${port}`);
 })
@@ -47,6 +48,10 @@ app.whenReady().then(() => {
           }
         });
         return decives;
+    })
+    app.on('window-all-closed', () => {
+        console.log("closed!");
+        if (process.platform !== 'darwin') app.quit();
     })
 })
 

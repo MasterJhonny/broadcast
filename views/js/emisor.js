@@ -1,5 +1,6 @@
 const canvas = document.getElementById("preview");
 const btn = document.getElementById("btn");
+const btnHome = document.getElementById("btnHome");
 const menu = document.getElementById("menu");
 const reloadView = document.getElementById("reloadView");
 const video = document.getElementById("video");
@@ -57,7 +58,7 @@ btn.addEventListener("click", () => {
     if (video.dataset.status === "start") {
         if(!statusStreamLive) {
             streamDisplay();
-            btn.textContent = 'Dejar de emitir';
+            btn.textContent = 'Detener';
         } else {
             stopStream();
         }
@@ -75,4 +76,9 @@ menu.addEventListener("change", () => {
 reloadView.addEventListener("click", () => {
     console.log("reload!");
     window.electronAPI.getMediaDevice();
+})
+
+btnHome.addEventListener("click", () => {
+    socket.emit("stop", "stop");
+    window.location.href = "index.html";
 })
