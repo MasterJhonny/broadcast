@@ -57,6 +57,7 @@ btn.addEventListener("click", () => {
     
     if (video.dataset.status === "start") {
         if(!statusStreamLive) {
+            window.electronAPI.getIpAddress();
             streamDisplay();
             btn.textContent = 'Detener';
         } else {

@@ -1,3 +1,4 @@
+const address = require('address');
 const http = require('./http');
 const { app, BrowserWindow, Menu, desktopCapturer, ipcMain } = require("electron");
 const path = require("path");
@@ -20,7 +21,7 @@ const createWindow = () => {
             preload: path.join(__dirname, 'preload.js')
         }
     })
-    win.webContents.openDevTools();
+    // win.webContents.openDevTools();
     win.loadFile(path.join(__dirname, 'views/index.html'));
     // win.loadURL(`http://localhost:${port}/index.html`);
 
@@ -35,8 +36,8 @@ app.whenReady().then(() => {
     });
     
     ipcMain.handle("ip:address", async () => {
-        console.log(appConfig.host);
-        const ip = appConfig.host;
+        const ip = address.ip();
+        console.log("ip", ip);
         return ip;
     })
 
